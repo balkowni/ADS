@@ -41,9 +41,23 @@
             white-space: nowrap;
         }
 
-        /* CORRECTED Form input style: Added full border for clarity */
-        .form-input-clean {
-            @apply w-full border border-gray-300 p-2 rounded-md focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition duration-300;
+        /* MOBILE FONT SIZE ADJUSTMENT FOR HERO */
+        @media (max-width: 768px) {
+            .hero-title-mobile-fix {
+                font-size: 5rem !important;
+                line-height: 1 !important;
+            }
+        }
+
+        /* Mobile Menu Styling (Use visibility to hide/show, 'hidden' class will be toggled by JS) */
+        #mobile-menu {
+            transition: opacity 0.3s ease-in-out;
+            visibility: hidden; /* Start hidden for accessibility */
+            opacity: 0;
+        }
+        #mobile-menu.active {
+            visibility: visible;
+            opacity: 1;
         }
     </style>
 </head>
@@ -60,11 +74,24 @@
             <a href="#portfolio" class="hover:text-blue-500 transition duration-200">Work</a>
             <a href="#contact" class="px-3 py-1 bg-red-500 text-white rounded-sm hover:bg-red-600 transition duration-200">Contact</a>
         </nav>
-        <button class="md:hidden text-gray-800 hover:text-blue-500">
+        <button id="mobile-menu-button" class="md:hidden text-gray-800 hover:text-blue-500 z-50">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
         </button>
     </div>
 </header>
+
+<div id="mobile-menu" class="fixed inset-0 bg-white z-[55] p-10 flex flex-col items-center justify-center">
+    <button id="close-menu-button" class="absolute top-6 right-6 text-4xl text-gray-800 p-2 leading-none hover:text-red-500 transition duration-200">
+        &times;
+    </button>
+    <nav class="flex flex-col space-y-8 text-3xl font-black uppercase text-center">
+        <a href="#manifesto" class="text-gray-800 hover:text-blue-500 transition duration-200" onclick="closeMobileMenu()">Vision</a>
+        <a href="#services" class="text-gray-800 hover:text-blue-500 transition duration-200" onclick="closeMobileMenu()">Precision</a>
+        <a href="#portfolio" class="text-gray-800 hover:text-blue-500 transition duration-200" onclick="closeMobileMenu()">Work</a>
+        <a href="#contact" class="px-6 py-3 bg-red-500 text-white rounded-sm hover:bg-red-600 transition duration-200" onclick="closeMobileMenu()">Contact</a>
+    </nav>
+    <p class="absolute bottom-10 text-sm font-mono tracking-widest text-gray-400">Alkowni Design Studios</p>
+</div>
 
 <main>
 
@@ -78,26 +105,21 @@
             </div>
 
             <div class="md:col-span-8 relative z-20" data-aos="fade-up-swiss">
-                <h1 class="text-7xl md:text-[10rem] lg:text-[14rem] font-black leading-none tracking-tighter uppercase mb-6" style="line-height: 0.9;">
+                <h1 class="text-7xl md:text-[10rem] lg:text-[14rem] font-black leading-none tracking-tighter uppercase mb-6 hero-title-mobile-fix">
                     Alkowni.
                 </h1>
                 <h2 class="text-4xl md:text-5xl font-light tracking-tight text-gray-600 ml-1">
                     Design Studios.
                 </h2>
                 <p class="mt-10 max-w-lg text-xl font-mono border-l-4 border-red-500 pl-4">
-                    We craft **digital systems** built for clarity and conversion, engineered with **absolute precision** and zero limits.
+                    We craft <strong>digital systems</strong> built for clarity and conversion, engineered with <strong>absolute precision</strong> and zero limits.
                 </p>
                 <a href="#manifesto" class="mt-8 inline-block px-8 py-3 text-lg font-bold uppercase tracking-wider color-accent text-white hover:bg-red-600 transition duration-300 shadow-xl">
                     Start Building
                 </a>
             </div>
 
-            <div class="md:col-span-4 flex justify-end items-end relative z-20">
-                <div class="text-sm font-mono tracking-widest text-gray-500">
-                        <span class="inline-block rotated-text translate-y-full mb-4">
-                            CURRENT STATUS: CUSTOM DESIGN / NO TEMPLATES
-                        </span>
-                </div>
+            <div class="md:col-span-4 hidden md:flex justify-end items-end relative z-20">
             </div>
         </div>
     </section>
@@ -112,33 +134,33 @@
                     System. ADS.
                 </h3>
                 <div class="w-16 h-1 bg-red-500 mb-6"></div>
-                <h2 class="text-5xl font-extrabold leading-tight tracking-tighter">
+                <h2 class="text-4xl md:text-5xl font-extrabold leading-tight tracking-tighter">
                     Bring Your Vision to Life — Without Limits
                 </h2>
             </div>
 
             <div class="md:col-span-8 space-y-8">
-                <p class="text-xl font-light leading-relaxed text-gray-700" data-aos="fade-up-swiss">
-                    At **Alkowni Design Studios**, we believe your website should be as unique as your business—not a generic template or a cookie-cutter design that thousands of others are using. We do the opposite.
+                <p class="text-lg md:text-xl font-light leading-relaxed text-gray-700" data-aos="fade-up-swiss">
+                    At <strong>Alkowni Design Studios</strong>, we believe your website should be as unique as your business—not a generic template or a cookie-cutter design that thousands of others are using. We do the opposite.
                 </p>
 
                 <div class="border-l-4 border-gray-100 pl-6" data-aos="fade-up-swiss" data-aos-delay="200">
-                    <p class="text-lg text-gray-600">
-                        Here, your ideas lead the process. We build every site **from the ground up**, giving you full freedom to create exactly what you envision—**no limitations, no compromises**.
+                    <p class="text-base md:text-lg text-gray-600">
+                        Here, your ideas lead the process. We build every site <strong>from the ground up</strong>, giving you full freedom to create exactly what you envision—<strong>no limitations, no compromises</strong>.
                     </p>
                 </div>
 
-                <p class="text-xl font-mono text-blue-600 pt-4" data-aos="fade-up-swiss" data-aos-delay="400">
+                <p class="text-lg font-mono text-blue-600 pt-4" data-aos="fade-up-swiss" data-aos-delay="400">
                     Building your site from scratch isn’t just about creativity—it’s smart.
                 </p>
 
-                <div class="bg-red-500 p-6 text-white text-lg max-w-2xl shadow-xl" data-aos="fade-up-swiss" data-aos-delay="600">
+                <div class="bg-red-500 p-6 text-white text-base md:text-lg max-w-2xl shadow-xl" data-aos="fade-up-swiss" data-aos-delay="600">
                     <p>
-                        Custom development lets you avoid paying for unnecessary features that inflate costs and clutter your site. You invest only in what truly matters, resulting in a **streamlined, high-performing website**.
+                        Custom development lets you avoid paying for unnecessary features that inflate costs and clutter your site. You invest only in what truly matters, resulting in a <strong>streamlined, high-performing website</strong>.
                     </p>
                 </div>
 
-                <p class="text-3xl font-black pt-4 uppercase tracking-wider" data-aos="fade-up-swiss" data-aos-delay="800">
+                <p class="text-2xl md:text-3xl font-black pt-4 uppercase tracking-wider" data-aos="fade-up-swiss" data-aos-delay="800">
                     At Alkowni Design Studios, you’re not choosing a template. You’re creating a digital experience.
                 </p>
             </div>
@@ -149,16 +171,16 @@
 
     <section id="services" class="py-20 md:py-32 bg-gray-50 overflow-hidden">
         <div class="container mx-auto">
-            <h2 class="text-6xl md:text-8xl font-black uppercase tracking-tighter mb-16 text-blue-500/10">
+            <h2 class="text-4xl md:text-8xl font-black uppercase tracking-tighter mb-16 text-blue-500/10">
                 The Pillars
             </h2>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
 
                 <div class="p-8 border-4 border-white shadow-2xl hover:shadow-red-500/20 transition duration-500 bg-white" data-aos="fade-up-swiss">
-                    <span class="text-6xl font-extrabold text-red-500 leading-none block mb-4">01</span>
-                    <h3 class="text-4xl font-extrabold mb-4 tracking-tight">Website Engineering</h3>
-                    <p class="text-lg text-gray-600 mb-6">From wireframe to deployment, we build high-performance websites. Specialized in dynamic, marketing-focused sites that load instantly and provide seamless user journeys.</p>
+                    <span class="text-5xl md:text-6xl font-extrabold text-red-500 leading-none block mb-4">01</span>
+                    <h3 class="text-3xl md:text-4xl font-extrabold mb-4 tracking-tight">Website Engineering</h3>
+                    <p class="text-base md:text-lg text-gray-600 mb-6">From wireframe to deployment, we build high-performance websites. Specialized in dynamic, marketing-focused sites that load instantly and provide seamless user journeys.</p>
                     <ul class="space-y-2 text-sm font-mono uppercase tracking-widest text-blue-500">
                         <li>→ Frontend Development (Tailwind / React)</li>
                         <li>→ SEO & Accessibility Focus (WCAG)</li>
@@ -167,9 +189,9 @@
                 </div>
 
                 <div class="p-8 border-4 border-white shadow-2xl hover:shadow-blue-500/20 transition duration-500 bg-white" data-aos="fade-up-swiss" data-aos-delay="200">
-                    <span class="text-6xl font-extrabold text-red-500 leading-none block mb-4">02</span>
-                    <h3 class="text-4xl font-extrabold mb-4 tracking-tight">UAV Media Acquisition</h3>
-                    <p class="text-lg text-gray-600 mb-6">Capture your assets and operations from a unique, premium perspective. Our licensed drone pilots deliver stunning, broadcast-quality 4K footage and high-resolution stills.</p>
+                    <span class="text-5xl md:text-6xl font-extrabold text-red-500 leading-none block mb-4">02</span>
+                    <h3 class="text-3xl md:text-4xl font-extrabold mb-4 tracking-tight">UAV Media Acquisition</h3>
+                    <p class="text-base md:text-lg text-gray-600 mb-6">Capture your assets and operations from a unique, premium perspective. Our licensed drone pilots deliver stunning, broadcast-quality 4K footage and high-resolution stills.</p>
                     <ul class="space-y-2 text-sm font-mono uppercase tracking-widest text-blue-500">
                         <li>→ Aerial Videography for Homepages</li>
                         <li>→ Commercial Property Photo/Video</li>
@@ -178,9 +200,9 @@
                 </div>
 
                 <div class="p-8 border-4 border-white shadow-2xl hover:shadow-gray-500/20 transition duration-500 bg-white" data-aos="fade-up-swiss" data-aos-delay="400">
-                    <span class="text-6xl font-extrabold text-red-500 leading-none block mb-4">03</span>
-                    <h3 class="text-4xl font-extrabold mb-4 tracking-tight">Digital Content Strategy</h3>
-                    <p class="text-lg text-gray-600 mb-6">We design your content to perform optimally on social platforms, ensuring visual consistency with your new website and maximizing organic reach.</p>
+                    <span class="text-5xl md:text-6xl font-extrabold text-red-500 leading-none block mb-4">03</span>
+                    <h3 class="text-3xl md:text-4xl font-extrabold mb-4 tracking-tight">Digital Content Strategy</h3>
+                    <p class="text-base md:text-lg text-gray-600 mb-6">We design your content to perform optimally on social platforms, ensuring visual consistency with your new website and maximizing organic reach.</p>
                     <ul class="space-y-2 text-sm font-mono uppercase tracking-widest text-blue-500">
                         <li>→ Platform-Specific Asset Design</li>
                         <li>→ Vertical Video Editing & Strategy</li>
@@ -201,11 +223,11 @@
                     <h2 class="text-xl font-mono uppercase tracking-widest text-red-500 mb-4" data-aos="fade-right">
                         Case Study. 01.2025
                     </h2>
-                    <h3 class="text-6xl font-black tracking-tighter uppercase mb-6" data-aos="fade-right" data-aos-delay="100">
+                    <h3 class="text-4xl md:text-6xl font-black tracking-tighter uppercase mb-6" data-aos="fade-right" data-aos-delay="100">
                         Ahlam Soccer Academy.
                     </h3>
                     <p class="text-lg text-gray-600 mb-8 max-w-md" data-aos="fade-right" data-aos-delay="200">
-                        **Objective:** Create a dynamic, enrollment-focused platform built on speed and clarity. The design uses bold asymmetry to match the academy's energetic brand.
+                        <strong>Objective:</strong> Create a dynamic, enrollment-focused platform built on speed and clarity. The design uses bold asymmetry to match the academy's energetic brand.
                     </p>
                     <a href="https://ahlamsocceracademy.com" target="_blank" rel="noopener noreferrer" class="font-bold text-blue-500 hover:text-red-500 transition duration-300 flex items-center" data-aos="fade-right" data-aos-delay="300">
                         View Live Project
@@ -235,7 +257,7 @@
             <div class="bg-white p-8 md:p-12 shadow-2xl border-t-8 border-red-500" data-aos="fade-up-swiss">
 
                 <div class="mb-8">
-                    <h2 class="text-5xl font-black uppercase tracking-tighter">
+                    <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tighter">
                         INITIATE PROJECT
                     </h2>
                     <div class="w-full h-1 bg-blue-500 mt-2"></div>
@@ -246,22 +268,26 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div>
                             <label for="name" class="block text-sm font-mono uppercase tracking-widest mb-1">Name *</label>
-                            <input type="text" name="name" id="name" required class="form-input-clean">
+                            <input type="text" name="name" id="name" required
+                                   class="w-full border border-gray-300 p-2 rounded-md focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition duration-300">
                         </div>
                         <div>
                             <label for="last_name" class="block text-sm font-mono uppercase tracking-widest mb-1">Last Name *</label>
-                            <input type="text" name="last_name" id="last_name" required class="form-input-clean">
+                            <input type="text" name="last_name" id="last_name" required
+                                   class="w-full border border-gray-300 p-2 rounded-md focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition duration-300">
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div>
                             <label for="phone" class="block text-sm font-mono uppercase tracking-widest mb-1">Phone *</label>
-                            <input type="tel" name="phone" id="phone" required class="form-input-clean">
+                            <input type="tel" name="phone" id="phone" required
+                                   class="w-full border border-gray-300 p-2 rounded-md focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition duration-300">
                         </div>
                         <div>
                             <label for="email" class="block text-sm font-mono uppercase tracking-widest mb-1">Email *</label>
-                            <input type="email" name="email" id="email" required class="form-input-clean">
+                            <input type="email" name="email" id="email" required
+                                   class="w-full border border-gray-300 p-2 rounded-md focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition duration-300">
                         </div>
                     </div>
 
@@ -285,12 +311,14 @@
 
                     <div>
                         <label for="source" class="block text-sm font-mono uppercase tracking-widest mb-1">How did you hear about us?</label>
-                        <input type="text" name="source" id="source" class="form-input-clean">
+                        <input type="text" name="source" id="source"
+                               class="w-full border border-gray-300 p-2 rounded-md focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition duration-300">
                     </div>
 
                     <div>
                         <label for="message" class="block text-sm font-mono uppercase tracking-widest mb-1">Project Brief/Message</label>
-                        <textarea name="message" id="message" rows="4" class="form-input-clean"></textarea>
+                        <textarea name="message" id="message" rows="4"
+                                  class="w-full border border-gray-300 p-2 rounded-md focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition duration-300"></textarea>
                     </div>
 
                     <input type="text" name="_gotcha" style="display:none">
@@ -320,27 +348,7 @@
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-<script>
-    // Initialize AOS animations
-    AOS.init({
-        duration: 1000,
-        once: true,
-        mirror: false,
-    });
-
-    // Custom smooth scroll implementation for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-</script>
+<script src="js/main.js"></script>
 
 </body>
 </html>
