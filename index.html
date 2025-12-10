@@ -10,17 +10,70 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        /* Custom styles for grid and colors */
-        .swiss-grid-bg {
-            background-image: linear-gradient(to right, #f2f2f2 1px, transparent 1px),
-            linear-gradient(to bottom, #f2f2f2 1px, transparent 1px);
-            background-size: 20px 20px;
+        /* -------------------------------------- */
+        /* --- 1. COSMIC BASE & BACKGROUND --- */
+        /* -------------------------------------- */
+
+        body {
+            /* Base Dark Background: Deeper, non-purple navy/black */
+            background-color: #000a16;
+            color: #f3f4f6; /* Default Light Text */
+            scroll-behavior: smooth;
         }
 
-        .color-primary { background-color: #3b82f6; } /* Tailwind blue-500 */
-        .color-accent { background-color: #ef4444; } /* Tailwind red-500 */
+        /* --- BACKGROUND IMAGE IMPLEMENTATION --- */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('assets/ads-background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: -1;
+        }
 
-        /* Custom AOS/Scroll Overrides */
+        /* --- 2. COSMIC BLUE COLOR PALETTE --- */
+        /* Sky Blue Hex for accents, glow, etc. */
+        .color-primary { background-color: #0ea5e9; } /* Sky Blue */
+        .text-color-primary { color: #0ea5e9; }
+        .hover\:text-color-primary:hover { color: #0ea5e9; }
+        .color-accent { background-color: #0ea5e9; }
+
+        /* --- 3. TEXT GLOW EFFECT (For Hero H1) --- */
+        .cosmic-glow {
+            /* Glow uses Sky Blue for the main accent and its shadow */
+            text-shadow: 0 0 5px rgba(14, 165, 233, 0.5),
+            0 0 10px rgba(14, 165, 233, 0.3),
+            0 0 15px rgba(14, 165, 233, 0.2);
+        }
+
+        /* -------------------------------------- */
+        /* --- STANDARD & ANIMATION STYLES --- */
+        /* -------------------------------------- */
+
+        /* Navigation Header Adjustment */
+        header {
+            background-color: #000a16 !important;
+            border-bottom-color: rgba(14, 165, 233, 0.2) !important;
+        }
+
+        /* Service and Contact Section Background (Dark Navy Blue) */
+        .bg-\[\#0a1727\] {
+            background-color: #0a1727;
+        }
+
+        /* Service Card Border (Slightly Lighter Dark Navy) */
+        .border-\[\#1d2c41\] {
+            border-color: #1d2c41;
+        }
+
+        /* AOS/Scroll Overrides */
         [data-aos] {
             opacity: 0;
             transition-property: opacity, transform;
@@ -49,46 +102,82 @@
             }
         }
 
-        /* Mobile Menu Styling (Use visibility to hide/show, 'hidden' class will be toggled by JS) */
+        /* Mobile Menu Styling */
         #mobile-menu {
             transition: opacity 0.3s ease-in-out;
-            visibility: hidden; /* Start hidden for accessibility */
+            visibility: hidden;
             opacity: 0;
+            background-color: #000a16 !important;
         }
         #mobile-menu.active {
             visibility: visible;
             opacity: 1;
         }
+
+        /* LOGO ANIMATION - Orbiting Pulse */
+        @keyframes pulse-slow {
+            0% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 0.7; }
+        }
+        .animate-pulse-slow {
+            animation: pulse-slow 4s infinite ease-in-out;
+        }
+
+        /* CAROUSEL STYLING: Ensure slides are hidden initially */
+        .project-slide {
+            display: none;
+            transition: opacity 0.5s; /* Smooth opacity transition */
+            opacity: 0; /* Start hidden for JS to manage */
+        }
+
+        .project-slide.active {
+            display: grid; /* Use grid when active */
+            opacity: 1;
+        }
+        /* CAROUSEL WRAPPER: Helps smooth height adjustments */
+        #carousel-items {
+            position: relative;
+            /* Added transition for smoother height change if content size varies */
+            transition: height 0.3s ease-in-out;
+        }
     </style>
 </head>
-<body class="bg-white text-gray-800 font-sans swiss-grid-bg">
+<body class="font-sans">
 
-<header class="sticky top-0 z-50 p-6 bg-white/90 backdrop-blur-sm border-b border-gray-100 transition-all duration-300">
+<header class="sticky top-0 z-50 p-6 backdrop-blur-sm border-b transition-all duration-300">
     <div class="container mx-auto flex justify-between items-center">
-        <a href="#hero" class="text-2xl font-black tracking-tighter hover:text-red-500 transition duration-300">
-            A<span class="text-blue-500">D</span>S
+
+        <a href="#hero" class="text-3xl font-black tracking-tighter text-sky-500 hover:text-sky-400 transition duration-300">
+                <span class="relative inline-block text-gray-400 opacity-70 hover:opacity-100 transition duration-500">
+                    A
+                    <span class="absolute top-0 left-0 w-3 h-3 border border-sky-500 rounded-full animate-pulse-slow"></span>
+                </span>
+            <span class="text-sky-500">D</span>
+            <span class="text-gray-400 opacity-70 hover:opacity-100 transition duration-500">S</span>
         </a>
+
         <nav class="hidden md:flex space-x-8 text-sm font-medium uppercase tracking-widest">
-            <a href="#manifesto" class="hover:text-blue-500 transition duration-200">Vision</a>
-            <a href="#services" class="hover:text-blue-500 transition duration-200">Precision</a>
-            <a href="#portfolio" class="hover:text-blue-500 transition duration-200">Work</a>
-            <a href="#contact" class="px-3 py-1 bg-red-500 text-white rounded-sm hover:bg-red-600 transition duration-200">Contact</a>
+            <a href="#manifesto" class="hover:text-sky-500 transition duration-200">Vision</a>
+            <a href="#services" class="hover:text-sky-500 transition duration-200">Precision</a>
+            <a href="#portfolio" class="hover:text-sky-500 transition duration-200">Work</a>
+            <a href="#contact" class="px-3 py-1 bg-sky-500 text-white rounded-sm hover:bg-sky-600 transition duration-200">Contact</a>
         </nav>
-        <button id="mobile-menu-button" class="md:hidden text-gray-800 hover:text-blue-500 z-50">
+        <button id="mobile-menu-button" class="md:hidden text-gray-100 hover:text-sky-500 z-50">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
         </button>
     </div>
 </header>
 
-<div id="mobile-menu" class="fixed inset-0 bg-white z-[55] p-10 flex flex-col items-center justify-center">
-    <button id="close-menu-button" class="absolute top-6 right-6 text-4xl text-gray-800 p-2 leading-none hover:text-red-500 transition duration-200">
+<div id="mobile-menu" class="fixed inset-0 z-[55] p-10 flex flex-col items-center justify-center">
+    <button id="close-menu-button" class="absolute top-6 right-6 text-4xl text-gray-100 p-2 leading-none hover:text-sky-500 transition duration-200">
         &times;
     </button>
     <nav class="flex flex-col space-y-8 text-3xl font-black uppercase text-center">
-        <a href="#manifesto" class="text-gray-800 hover:text-blue-500 transition duration-200" onclick="closeMobileMenu()">Vision</a>
-        <a href="#services" class="text-gray-800 hover:text-blue-500 transition duration-200" onclick="closeMobileMenu()">Precision</a>
-        <a href="#portfolio" class="text-gray-800 hover:text-blue-500 transition duration-200" onclick="closeMobileMenu()">Work</a>
-        <a href="#contact" class="px-6 py-3 bg-red-500 text-white rounded-sm hover:bg-red-600 transition duration-200" onclick="closeMobileMenu()">Contact</a>
+        <a href="#manifesto" class="text-gray-100 hover:text-sky-500 transition duration-200" onclick="closeMobileMenu()">Vision</a>
+        <a href="#services" class="text-gray-100 hover:text-sky-500 transition duration-200" onclick="closeMobileMenu()">Precision</a>
+        <a href="#portfolio" class="text-gray-100 hover:text-sky-500 transition duration-200" onclick="closeMobileMenu()">Work</a>
+        <a href="#contact" class="px-6 py-3 bg-sky-500 text-white rounded-sm hover:bg-sky-600 transition duration-200" onclick="closeMobileMenu()">Contact</a>
     </nav>
     <p class="absolute bottom-10 text-sm font-mono tracking-widest text-gray-400">Alkowni Design Studios</p>
 </div>
@@ -99,22 +188,22 @@
         <div class="container mx-auto grid grid-cols-1 md:grid-cols-12 gap-8">
 
             <div class="hidden md:block absolute top-1/2 left-0 -translate-y-1/2 z-10 opacity-10">
-                <div class="rotated-text text-9xl font-extrabold text-blue-500/10 tracking-widest leading-none">
+                <div class="rotated-text text-9xl font-extrabold text-sky-500/10 tracking-widest leading-none">
                     DESIGN. CLARITY. CUSTOM. ADS.
                 </div>
             </div>
 
             <div class="md:col-span-8 relative z-20" data-aos="fade-up-swiss">
-                <h1 class="text-7xl md:text-[10rem] lg:text-[14rem] font-black leading-none tracking-tighter uppercase mb-6 hero-title-mobile-fix">
+                <h1 class="text-7xl md:text-[10rem] lg:text-[14rem] font-black leading-none tracking-tighter uppercase mb-6 hero-title-mobile-fix cosmic-glow">
                     Alkowni.
                 </h1>
-                <h2 class="text-4xl md:text-5xl font-light tracking-tight text-gray-600 ml-1">
+                <h2 class="text-4xl md:text-5xl font-light tracking-tight text-gray-300 ml-1">
                     Design Studios.
                 </h2>
-                <p class="mt-10 max-w-lg text-xl font-mono border-l-4 border-red-500 pl-4">
+                <p class="mt-10 max-w-lg text-xl font-mono border-l-4 border-sky-500 pl-4 text-gray-200">
                     We craft <strong>digital systems</strong> built for clarity and conversion, engineered with <strong>absolute precision</strong> and zero limits.
                 </p>
-                <a href="#manifesto" class="mt-8 inline-block px-8 py-3 text-lg font-bold uppercase tracking-wider color-accent text-white hover:bg-red-600 transition duration-300 shadow-xl">
+                <a href="#manifesto" class="mt-8 inline-block px-8 py-3 text-lg font-bold uppercase tracking-wider bg-sky-500 text-white hover:bg-sky-600 transition duration-300 shadow-xl">
                     Start Building
                 </a>
             </div>
@@ -124,86 +213,86 @@
         </div>
     </section>
 
-    <hr class="border-gray-100">
+    <hr class="border-gray-800">
 
     <section id="manifesto" class="py-20 md:py-32 relative overflow-hidden">
         <div class="container mx-auto grid grid-cols-1 md:grid-cols-12 gap-12">
 
             <div class="md:col-span-4" data-aos="fade-right">
-                <h3 class="text-xs font-mono uppercase tracking-widest text-blue-500 mb-2">
+                <h3 class="text-xs font-mono uppercase tracking-widest text-sky-500 mb-2">
                     System. ADS.
                 </h3>
-                <div class="w-16 h-1 bg-red-500 mb-6"></div>
-                <h2 class="text-4xl md:text-5xl font-extrabold leading-tight tracking-tighter">
+                <div class="w-16 h-1 bg-sky-500 mb-6"></div>
+                <h2 class="text-4xl md:text-5xl font-extrabold leading-tight tracking-tighter text-gray-50">
                     Bring Your Vision to Life — Without Limits
                 </h2>
             </div>
 
             <div class="md:col-span-8 space-y-8">
-                <p class="text-lg md:text-xl font-light leading-relaxed text-gray-700" data-aos="fade-up-swiss">
+                <p class="text-lg md:text-xl font-light leading-relaxed text-gray-300" data-aos="fade-up-swiss">
                     At <strong>Alkowni Design Studios</strong>, we believe your website should be as unique as your business—not a generic template or a cookie-cutter design that thousands of others are using. We do the opposite.
                 </p>
 
-                <div class="border-l-4 border-gray-100 pl-6" data-aos="fade-up-swiss" data-aos-delay="200">
-                    <p class="text-base md:text-lg text-gray-600">
+                <div class="border-l-4 border-gray-700 pl-6" data-aos="fade-up-swiss" data-aos-delay="200">
+                    <p class="text-base md:text-lg text-gray-400">
                         Here, your ideas lead the process. We build every site <strong>from the ground up</strong>, giving you full freedom to create exactly what you envision—<strong>no limitations, no compromises</strong>.
                     </p>
                 </div>
 
-                <p class="text-lg font-mono text-blue-600 pt-4" data-aos="fade-up-swiss" data-aos-delay="400">
+                <p class="text-lg font-mono text-sky-400 pt-4" data-aos="fade-up-swiss" data-aos-delay="400">
                     Building your site from scratch isn’t just about creativity—it’s smart.
                 </p>
 
-                <div class="bg-red-500 p-6 text-white text-base md:text-lg max-w-2xl shadow-xl" data-aos="fade-up-swiss" data-aos-delay="600">
+                <div class="bg-sky-500 p-6 text-white text-base md:text-lg max-w-2xl shadow-xl" data-aos="fade-up-swiss" data-aos-delay="600">
                     <p>
                         Custom development lets you avoid paying for unnecessary features that inflate costs and clutter your site. You invest only in what truly matters, resulting in a <strong>streamlined, high-performing website</strong>.
                     </p>
                 </div>
 
-                <p class="text-2xl md:text-3xl font-black pt-4 uppercase tracking-wider" data-aos="fade-up-swiss" data-aos-delay="800">
+                <p class="text-2xl md:text-3xl font-black pt-4 uppercase tracking-wider text-gray-50" data-aos="fade-up-swiss" data-aos-delay="800">
                     At Alkowni Design Studios, you’re not choosing a template. You’re creating a digital experience.
                 </p>
             </div>
         </div>
     </section>
 
-    <hr class="border-gray-100">
+    <hr class="border-gray-800">
 
-    <section id="services" class="py-20 md:py-32 bg-gray-50 overflow-hidden">
+    <section id="services" class="py-20 md:py-32 bg-[#0a1727] overflow-hidden">
         <div class="container mx-auto">
-            <h2 class="text-4xl md:text-8xl font-black uppercase tracking-tighter mb-16 text-blue-500/10">
+            <h2 class="text-4xl md:text-8xl font-black uppercase tracking-tighter mb-16 text-sky-500/10">
                 The Pillars
             </h2>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
 
-                <div class="p-8 border-4 border-white shadow-2xl hover:shadow-red-500/20 transition duration-500 bg-white" data-aos="fade-up-swiss">
-                    <span class="text-5xl md:text-6xl font-extrabold text-red-500 leading-none block mb-4">01</span>
-                    <h3 class="text-3xl md:text-4xl font-extrabold mb-4 tracking-tight">Website Engineering</h3>
-                    <p class="text-base md:text-lg text-gray-600 mb-6">From wireframe to deployment, we build high-performance websites. Specialized in dynamic, marketing-focused sites that load instantly and provide seamless user journeys.</p>
-                    <ul class="space-y-2 text-sm font-mono uppercase tracking-widest text-blue-500">
+                <div class="p-8 border-4 border-[#1d2c41] shadow-2xl hover:shadow-sky-500/30 transition duration-500 bg-[#000a16]" data-aos="fade-up-swiss">
+                    <span class="text-5xl md:text-6xl font-extrabold text-sky-500 leading-none block mb-4">01</span>
+                    <h3 class="text-3xl md:text-4xl font-extrabold mb-4 tracking-tight text-gray-50">Website Engineering</h3>
+                    <p class="text-base md:text-lg text-gray-300 mb-6">From wireframe to deployment, we build high-performance websites. Specialized in dynamic, marketing-focused sites that load instantly and provide seamless user journeys.</p>
+                    <ul class="space-y-2 text-sm font-mono uppercase tracking-widest text-sky-400">
                         <li>→ Frontend Development (Tailwind / React)</li>
                         <li>→ SEO & Accessibility Focus (WCAG)</li>
                         <li>→ High-Speed Hosting Setup</li>
                     </ul>
                 </div>
 
-                <div class="p-8 border-4 border-white shadow-2xl hover:shadow-blue-500/20 transition duration-500 bg-white" data-aos="fade-up-swiss" data-aos-delay="200">
-                    <span class="text-5xl md:text-6xl font-extrabold text-red-500 leading-none block mb-4">02</span>
-                    <h3 class="text-3xl md:text-4xl font-extrabold mb-4 tracking-tight">UAV Media Acquisition</h3>
-                    <p class="text-base md:text-lg text-gray-600 mb-6">Capture your assets and operations from a unique, premium perspective. Our licensed drone pilots deliver stunning, broadcast-quality 4K footage and high-resolution stills.</p>
-                    <ul class="space-y-2 text-sm font-mono uppercase tracking-widest text-blue-500">
+                <div class="p-8 border-4 border-[#1d2c41] shadow-2xl hover:shadow-sky-500/30 transition duration-500 bg-[#000a16]" data-aos="fade-up-swiss" data-aos-delay="200">
+                    <span class="text-5xl md:text-6xl font-extrabold text-sky-500 leading-none block mb-4">02</span>
+                    <h3 class="text-3xl md:text-4xl font-extrabold mb-4 tracking-tight text-gray-50">UAV Media Acquisition</h3>
+                    <p class="text-base md:text-lg text-gray-300 mb-6">Capture your assets and operations from a unique, premium perspective. Our licensed drone pilots deliver stunning, broadcast-quality 4K footage and high-resolution stills.</p>
+                    <ul class="space-y-2 text-sm font-mono uppercase tracking-widest text-sky-400">
                         <li>→ Aerial Videography for Homepages</li>
                         <li>→ Commercial Property Photo/Video</li>
                         <li>→ Post-Production & Color Grading</li>
                     </ul>
                 </div>
 
-                <div class="p-8 border-4 border-white shadow-2xl hover:shadow-gray-500/20 transition duration-500 bg-white" data-aos="fade-up-swiss" data-aos-delay="400">
-                    <span class="text-5xl md:text-6xl font-extrabold text-red-500 leading-none block mb-4">03</span>
-                    <h3 class="text-3xl md:text-4xl font-extrabold mb-4 tracking-tight">Digital Content Strategy</h3>
-                    <p class="text-base md:text-lg text-gray-600 mb-6">We design your content to perform optimally on social platforms, ensuring visual consistency with your new website and maximizing organic reach.</p>
-                    <ul class="space-y-2 text-sm font-mono uppercase tracking-widest text-blue-500">
+                <div class="p-8 border-4 border-[#1d2c41] shadow-2xl hover:shadow-gray-500/30 transition duration-500 bg-[#000a16]" data-aos="fade-up-swiss" data-aos-delay="400">
+                    <span class="text-5xl md:text-6xl font-extrabold text-sky-500 leading-none block mb-4">03</span>
+                    <h3 class="text-3xl md:text-4xl font-extrabold mb-4 tracking-tight text-gray-50">Digital Content Strategy</h3>
+                    <p class="text-base md:text-lg text-gray-300 mb-6">We design your content to perform optimally on social platforms, ensuring visual consistency with your new website and maximizing organic reach.</p>
+                    <ul class="space-y-2 text-sm font-mono uppercase tracking-widest text-sky-400">
                         <li>→ Platform-Specific Asset Design</li>
                         <li>→ Vertical Video Editing & Strategy</li>
                         <li>→ Maintaining Brand Grid and System</li>
@@ -213,118 +302,183 @@
         </div>
     </section>
 
-    <hr class="border-gray-100">
+    <hr class="border-gray-800">
 
     <section id="portfolio" class="py-20 md:py-32 overflow-hidden">
-        <div class="container mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
+        <div class="container mx-auto relative">
 
-                <div class="md:col-span-5 relative">
-                    <h2 class="text-xl font-mono uppercase tracking-widest text-red-500 mb-4" data-aos="fade-right">
-                        Case Study. 01.2025
-                    </h2>
-                    <h3 class="text-4xl md:text-6xl font-black tracking-tighter uppercase mb-6" data-aos="fade-right" data-aos-delay="100">
-                        Ahlam Soccer Academy.
-                    </h3>
-                    <p class="text-lg text-gray-600 mb-8 max-w-md" data-aos="fade-right" data-aos-delay="200">
-                        <strong>Objective:</strong> Create a dynamic, enrollment-focused platform built on speed and clarity. The design uses bold asymmetry to match the academy's energetic brand.
-                    </p>
-                    <a href="https://ahlamsocceracademy.com" target="_blank" rel="noopener noreferrer" class="font-bold text-blue-500 hover:text-red-500 transition duration-300 flex items-center" data-aos="fade-right" data-aos-delay="300">
-                        View Live Project
-                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </a>
+            <div id="carousel-items" class="relative">
+
+                <div class="project-slide active grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
+                    <div class="md:col-span-5 relative">
+                        <h2 class="text-xl font-mono uppercase tracking-widest text-sky-500 mb-4">
+                            Project 01 / 03
+                        </h2>
+                        <h3 class="text-4xl md:text-6xl font-black tracking-tighter uppercase mb-6 text-gray-50">
+                            Ahlam Soccer Academy.
+                        </h3>
+                        <p class="text-lg text-gray-300 mb-8 max-w-md">
+                            <strong>Objective:</strong> Client requested a dynamic, enrollment-focused platform built on speed and clarity. The design uses bold asymmetry to match the academy's energetic brand.
+                        </p>
+                        <a href="https://ahlamsocceracademy.com" target="_blank" rel="noopener noreferrer" class="font-bold text-sky-400 hover:text-sky-500 transition duration-300 flex items-center">
+                            View Live Project
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                    </div>
+                    <div class="md:col-span-7 relative">
+                        <a href="https://ahlamsocceracademy.com" target="_blank" rel="noopener noreferrer" class="block w-full h-auto relative shadow-2xl hover:shadow-sky-500/50 transition duration-500">
+                            <img
+                                    src="assets/portfolio-ahlam.jpg"
+                                    alt="Screenshot of Ahlam Soccer Academy Website"
+                                    class="w-full h-auto object-cover border-4 border-gray-800"
+                            >
+                        </a>
+                    </div>
                 </div>
 
-                <div class="md:col-span-7 relative" data-aos="fade-left" data-aos-delay="400">
-                    <a href="https://ahlamsocceracademy.com" target="_blank" rel="noopener noreferrer" class="block w-full h-auto relative shadow-2xl hover:shadow-blue-500/50 transition duration-500">
-                        <img
-                                src="assets/portfolio-ahlam.jpg"
-                                alt="Screenshot of Ahlam Soccer Academy Website"
-                                class="w-full h-auto object-cover border-4 border-gray-100"
-                        >
-                        <div class="absolute -bottom-4 -right-4 w-1/4 h-1/4 bg-red-500 opacity-80 z-10 hidden sm:block"></div>
-                    </a>
+                <div class="project-slide grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
+                    <div class="md:col-span-5 relative">
+                        <h2 class="text-xl font-mono uppercase tracking-widest text-sky-500 mb-4">
+                            Project 02 / 03
+                        </h2>
+                        <h3 class="text-4xl md:text-6xl font-black tracking-tighter uppercase mb-6 text-gray-50">
+                            Cosmic Commerce Hub.
+                        </h3>
+                        <p class="text-lg text-gray-300 mb-8 max-w-md">
+                            <strong>Objective:</strong> Developed a high-conversion e-commerce platform using React. Focused on seamless user experience, fast checkout, and personalized product recommendations.
+                        </p>
+                        <a href="#" class="font-bold text-sky-400 hover:text-sky-500 transition duration-300 flex items-center">
+                            View Live Project (Placeholder)
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                    </div>
+                    <div class="md:col-span-7 relative">
+                        <a href="#" class="block w-full h-auto relative shadow-2xl hover:shadow-sky-500/50 transition duration-500">
+                            <img
+                                    src="assets/portfolio-placeholder-2.jpg"
+                                    alt="Placeholder image for Cosmic Commerce Hub"
+                                    class="w-full h-auto object-cover border-4 border-gray-800"
+                            >
+                        </a>
+                    </div>
                 </div>
+
+                <div class="project-slide grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
+                    <div class="md:col-span-5 relative">
+                        <h2 class="text-xl font-mono uppercase tracking-widest text-sky-500 mb-4">
+                            Project 03 / 03
+                        </h2>
+                        <h3 class="text-4xl md:text-6xl font-black tracking-tighter uppercase mb-6 text-gray-50">
+                            Astro Survey Drone Site.
+                        </h3>
+                        <p class="text-lg text-gray-300 mb-8 max-w-md">
+                            <strong>Objective:</strong> Designed a service landing page showcasing UAV capabilities. Included a dynamic 4K video header and an integrated quote booking system.
+                        </p>
+                        <a href="#" class="font-bold text-sky-400 hover:text-sky-500 transition duration-300 flex items-center">
+                            View Live Project (Placeholder)
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                    </div>
+                    <div class="md:col-span-7 relative">
+                        <a href="#" class="block w-full h-auto relative shadow-2xl hover:shadow-sky-500/50 transition duration-500">
+                            <img
+                                    src="assets/portfolio-placeholder-3.jpg"
+                                    alt="Placeholder image for Astro Survey Drone Site"
+                                    class="w-full h-auto object-cover border-4 border-gray-800"
+                            >
+                        </a>
+                    </div>
+                </div>
+
             </div>
+            <div class="flex justify-center md:justify-start space-x-4 mt-12">
+                <button onclick="changeProject(-1)" class="px-6 py-2 border border-sky-500 text-sky-500 hover:bg-sky-500 hover:text-white transition duration-300 uppercase text-sm font-bold tracking-widest">
+                    &larr; Previous
+                </button>
+                <button onclick="changeProject(1)" class="px-6 py-2 border border-sky-500 text-sky-500 hover:bg-sky-500 hover:text-white transition duration-300 uppercase text-sm font-bold tracking-widest">
+                    Next &rarr;
+                </button>
+            </div>
+
         </div>
     </section>
 
-    <hr class="border-gray-100">
+    <hr class="border-gray-800">
 
-    <section id="contact" class="py-20 md:py-32 overflow-hidden bg-gray-100 swiss-grid-bg">
+    <section id="contact" class="py-20 md:py-32 bg-[#0a1727]">
         <div class="container mx-auto max-w-3xl">
 
-            <div class="bg-white p-8 md:p-12 shadow-2xl border-t-8 border-red-500" data-aos="fade-up-swiss">
+            <div class="bg-[#000a16] p-8 md:p-12 shadow-2xl border-t-8 border-sky-500" data-aos="fade-up-swiss">
 
                 <div class="mb-8">
-                    <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tighter">
+                    <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tighter text-gray-50">
                         INITIATE PROJECT
                     </h2>
-                    <div class="w-full h-1 bg-blue-500 mt-2"></div>
+                    <div class="w-full h-1 bg-sky-500 mt-2"></div>
                 </div>
 
                 <form action="https://formspree.io/f/xjknavkq" method="POST" class="space-y-6">
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div>
-                            <label for="name" class="block text-sm font-mono uppercase tracking-widest mb-1">Name *</label>
+                            <label for="name" class="block text-sm font-mono uppercase tracking-widest mb-1 text-gray-300">Name *</label>
                             <input type="text" name="name" id="name" required
-                                   class="w-full border border-gray-300 p-2 rounded-md focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition duration-300">
+                                   class="w-full border border-gray-700 p-2 rounded-md focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:outline-none transition duration-300 bg-gray-800 text-white">
                         </div>
                         <div>
-                            <label for="last_name" class="block text-sm font-mono uppercase tracking-widest mb-1">Last Name *</label>
+                            <label for="last_name" class="block text-sm font-mono uppercase tracking-widest mb-1 text-gray-300">Last Name *</label>
                             <input type="text" name="last_name" id="last_name" required
-                                   class="w-full border border-gray-300 p-2 rounded-md focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition duration-300">
+                                   class="w-full border border-gray-700 p-2 rounded-md focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:outline-none transition duration-300 bg-gray-800 text-white">
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div>
-                            <label for="phone" class="block text-sm font-mono uppercase tracking-widest mb-1">Phone *</label>
+                            <label for="phone" class="block text-sm font-mono uppercase tracking-widest mb-1 text-gray-300">Phone *</label>
                             <input type="tel" name="phone" id="phone" required
-                                   class="w-full border border-gray-300 p-2 rounded-md focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition duration-300">
+                                   class="w-full border border-gray-700 p-2 rounded-md focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:outline-none transition duration-300 bg-gray-800 text-white">
                         </div>
                         <div>
-                            <label for="email" class="block text-sm font-mono uppercase tracking-widest mb-1">Email *</label>
+                            <label for="email" class="block text-sm font-mono uppercase tracking-widest mb-1 text-gray-300">Email *</label>
                             <input type="email" name="email" id="email" required
-                                   class="w-full border border-gray-300 p-2 rounded-md focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition duration-300">
+                                   class="w-full border border-gray-700 p-2 rounded-md focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:outline-none transition duration-300 bg-gray-800 text-white">
                         </div>
                     </div>
 
-                    <div class="pt-4 border-t border-gray-200">
-                        <h4 class="text-sm font-mono uppercase tracking-widest mb-4">Services of Interest (Select all that apply) *</h4>
-                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-sm">
+                    <div class="pt-4 border-t border-gray-700">
+                        <h4 class="text-sm font-mono uppercase tracking-widest mb-4 text-gray-300">Services of Interest (Select all that apply) *</h4>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-sm text-gray-100">
                             <label class="flex items-center space-x-2">
-                                <input type="checkbox" name="services[]" value="Website Engineering" required class="text-blue-500 border-gray-300 focus:ring-blue-500">
+                                <input type="checkbox" name="services[]" value="Website Engineering" required class="text-sky-500 border-gray-700 focus:ring-sky-500 bg-gray-800">
                                 <span class="font-medium">Website Engineering</span>
                             </label>
                             <label class="flex items-center space-x-2">
-                                <input type="checkbox" name="services[]" value="UAV Media Acquisition" class="text-blue-500 border-gray-300 focus:ring-blue-500">
+                                <input type="checkbox" name="services[]" value="UAV Media Acquisition" class="text-sky-500 border-gray-700 focus:ring-sky-500 bg-gray-800">
                                 <span class="font-medium">UAV Media Acquisition</span>
                             </label>
                             <label class="flex items-center space-x-2">
-                                <input type="checkbox" name="services[]" value="Digital Content Strategy" class="text-blue-500 border-gray-300 focus:ring-blue-500">
+                                <input type="checkbox" name="services[]" value="Digital Content Strategy" class="text-sky-500 border-gray-700 focus:ring-sky-500 bg-gray-800">
                                 <span class="font-medium">Digital Content Strategy</span>
                             </label>
                         </div>
                     </div>
 
                     <div>
-                        <label for="source" class="block text-sm font-mono uppercase tracking-widest mb-1">How did you hear about us?</label>
+                        <label for="source" class="block text-sm font-mono uppercase tracking-widest mb-1 text-gray-300">How did you hear about us?</label>
                         <input type="text" name="source" id="source"
-                               class="w-full border border-gray-300 p-2 rounded-md focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition duration-300">
+                               class="w-full border border-gray-700 p-2 rounded-md focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:outline-none transition duration-300 bg-gray-800 text-white">
                     </div>
 
                     <div>
-                        <label for="message" class="block text-sm font-mono uppercase tracking-widest mb-1">Project Brief/Message</label>
+                        <label for="message" class="block text-sm font-mono uppercase tracking-widest mb-1 text-gray-300">Project Brief/Message</label>
                         <textarea name="message" id="message" rows="4"
-                                  class="w-full border border-gray-300 p-2 rounded-md focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none transition duration-300"></textarea>
+                                  class="w-full border border-gray-700 p-2 rounded-md focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:outline-none transition duration-300 bg-gray-800 text-white"></textarea>
                     </div>
 
                     <input type="text" name="_gotcha" style="display:none">
 
                     <div class="pt-4">
-                        <button type="submit" class="w-full px-8 py-4 text-xl font-bold uppercase tracking-widest color-accent text-white hover:bg-red-600 transition duration-300 shadow-lg">
+                        <button type="submit" class="w-full px-8 py-4 text-xl font-bold uppercase tracking-widest bg-sky-500 text-white hover:bg-sky-600 transition duration-300 shadow-lg">
                             Send Request
                         </button>
                     </div>
@@ -335,7 +489,7 @@
 
 </main>
 
-<footer class="p-8 border-t border-gray-200 bg-white">
+<footer class="p-8 border-t border-gray-800 bg-[#000a16]">
     <div class="container mx-auto flex flex-col md:flex-row justify-between items-center text-sm font-mono tracking-widest text-gray-500">
         <div class="mb-4 md:mb-0">
             Alkowni Design Studios | Absolute Precision.
@@ -348,7 +502,91 @@
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-<script src="js/main.js"></script>
+<script>
+    // AOS Initialization
+    AOS.init({
+        offset: 50,
+        duration: 800,
+        easing: 'ease-out',
+        once: true
+    });
 
+    // Mobile Menu Toggling
+    const menuButton = document.getElementById('mobile-menu-button');
+    const closeButton = document.getElementById('close-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    function toggleMobileMenu() {
+        mobileMenu.classList.toggle('active');
+    }
+
+    function closeMobileMenu() {
+        mobileMenu.classList.remove('active');
+    }
+
+    menuButton.addEventListener('click', toggleMobileMenu);
+    closeButton.addEventListener('click', closeMobileMenu);
+
+    // ----------------------------------------------------
+    // --- PORTFOLIO CAROUSEL JAVASCRIPT ---
+    // ----------------------------------------------------
+    let currentProjectIndex = 0;
+    // Get all slides
+    const projects = document.getElementsByClassName("project-slide");
+    const totalProjects = projects.length;
+
+    /**
+     * Displays a specific project slide.
+     * @param {number} n The index of the project to display.
+     */
+    function showProject(n) {
+        if (totalProjects === 0) return;
+
+        // Calculate the new index, ensuring it wraps around
+        if (n >= totalProjects) {
+            currentProjectIndex = 0;
+        } else if (n < 0) {
+            currentProjectIndex = totalProjects - 1;
+        } else {
+            currentProjectIndex = n;
+        }
+
+        // Hide all slides and remove 'active' class
+        for (let i = 0; i < totalProjects; i++) {
+            projects[i].classList.remove('active');
+            // Explicitly set style to none for hidden slides
+            projects[i].style.display = 'none';
+        }
+
+        // Show the current slide and add 'active' class
+        const activeSlide = projects[currentProjectIndex];
+        activeSlide.classList.add('active');
+        // Explicitly set display to grid for the active slide
+        activeSlide.style.display = 'grid';
+
+        // THE LINE THAT CAUSED THE JUMP HAS BEEN REMOVED HERE.
+
+        // Re-initialize/refresh AOS for the new content if the library is loaded
+        if (typeof AOS !== 'undefined' && AOS.refreshHard) {
+            // Use a slight delay to allow the slide to fully appear before re-analyzing
+            setTimeout(() => AOS.refreshHard(), 50);
+        }
+    }
+
+    /**
+     * Changes the project slide by a given step (1 for next, -1 for previous).
+     * @param {number} step The direction and magnitude of change.
+     */
+    window.changeProject = function(step) {
+        showProject(currentProjectIndex + step);
+    }
+
+    // Initialize the carousel to show the first project when the page is fully loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        // Start by ensuring only the first project is visible
+        showProject(0);
+    });
+
+</script>
 </body>
 </html>
